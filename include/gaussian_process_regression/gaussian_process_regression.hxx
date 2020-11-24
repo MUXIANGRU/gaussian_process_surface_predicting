@@ -1,8 +1,8 @@
-#ifndef GAUSSIAN_PROCESS_REGRESSION_HXX
-#define GAUSSIAN_PROCESS_REGRESSION_HXX
+//#ifndef GAUSSIAN_PROCESS_REGRESSION_HXX
+//#define GAUSSIAN_PROCESS_REGRESSION_HXX
 
 
-//#include "gaussian_process_regression/gaussian_process_regression.h"
+#include "gaussian_process_regression/gaussian_process_regression.h"
 
 template<typename R>
 GaussianProcessRegression<R>::GaussianProcessRegression(int inputDim,int outputDim)
@@ -61,7 +61,7 @@ void GaussianProcessRegression<R>::AddTrainingDataBatch(const MatrixXr& newInput
   b_need_prepare_ = true;
 }
 
-
+//gaussian kernel fuction for compute covariance
 template<typename R>
 R GaussianProcessRegression<R>::SQEcovFuncD(VectorXr x1, VectorXr x2)
 {
@@ -90,6 +90,7 @@ void GaussianProcessRegression<R>::PrepareRegression(bool force_prepare){
   KXX = SQEcovFunc(input_data_);
   KXX_ = KXX;
   // add measurement noise
+  // we set noise to zero
   for(int i=0;i<KXX.cols();i++)
     KXX_(i,i) += sigma_n_*sigma_n_;
   alpha_.resize(output_data_.rows(),output_data_.cols());
@@ -174,7 +175,7 @@ void GaussianProcessRegression<R>::ClearTrainingData()
   b_need_prepare_ = true;
   n_data_ = 0;
 }
-
+//return the covariance fuction Kff(the covariance between the training data)
 template<typename R>
 typename GaussianProcessRegression<R>::MatrixXr GaussianProcessRegression<R>::SQEcovFunc(MatrixXr x1){
   int nCol = x1.cols();
@@ -195,4 +196,4 @@ void GaussianProcessRegression<R>::Debug()
   std::cout<<"output data \n"<<output_data_<<std::endl;
 }
 
-#endif /* GAUSSIAN_PROCESS_REGRESSION_HXX */
+//#endif /* GAUSSIAN_PROCESS_REGRESSION_HXX */

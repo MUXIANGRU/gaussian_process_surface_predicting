@@ -13,7 +13,7 @@ typedef Eigen::Matrix<float,3,1> Vector3r;
 // for now, it is sufficient
 static double COMPARISON_THRESHOLD_FLOAT = 1.0e-5;
 static double COMPARISON_THRESHOLD_DOUBLE = 1.0e-5;
-
+ 
 
 template<typename input_type, typename output_type>
 void load_data(const char *fname, vector<input_type> &inputs, vector<output_type> &outputs, int input_dim, int output_dim) {
@@ -71,9 +71,9 @@ void assert_matrix_equal(const Eigen::Matrix<R,Eigen::Dynamic,Eigen::Dynamic>& m
   for (size_t row = 0; row < m1.rows(); ++row)
     {
       for (size_t col = 0; col < m1.cols(); ++col)
-    {
-      ASSERT_NEAR(m1(row,col), m2(row,col),th);
-    }
+	{
+	  ASSERT_NEAR(m1(row,col), m2(row,col),th);
+	}
     }
 }
 
@@ -275,7 +275,7 @@ void test_do_regression_mimo(R threshold){
     auto outp = gpr.DoRegression(test_inputs[k]);
     for (size_t l=0; l < outp.rows(); ++l)
       {
-    ASSERT_NEAR(test_outputs[k](l), outp(l), threshold);
+	ASSERT_NEAR(test_outputs[k](l), outp(l), threshold);
       }
   }
 }
@@ -324,7 +324,7 @@ TEST(SpeedTest,old_version){
   for (size_t k=0; k < test_input.cols(); ++k){
     gpr.DoRegressionOld(test_input.col(k));
   }
-
+    
 }
 
 TEST(SpeedTest,new_version){

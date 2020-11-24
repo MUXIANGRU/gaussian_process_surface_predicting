@@ -6,8 +6,28 @@ SET(CMAKE_BUILD_TYPE Release)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
 
+find_package(catkin REQUIRED COMPONENTS   
+message_generation
+  roscpp
+  rospy
+  std_msgs)
+catkin_package(
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS  roscpp rospy std_msgs message_runtime
+#  LIBRARIES gaussian_process_regression
+#  CATKIN_DEPENDS other_catkin_pkg
+#  DEPENDS system_lib
+)
+include_directories(include 
+${catkin_INCLUDE_DIRS} )
+include_directories("/home/mxr/catkin_gpr/src/gaussian-process-regression/include/")
+#add_executable(test_gpr src/test_gpr.cpp)
+#target_link_libraries(test_gpr ${catkin_LIBRARIES} gtest pthread)
+add_executable(my_test src/my_test.cpp)
+target_link_libraries(my_test ${catkin_LIBRARIES})
+add_executable(prac src/prac.cpp)
+target_link_libraries(prac ${catkin_LIBRARIES} gtest pthread)
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -17,12 +37,7 @@ find_package(catkin REQUIRED)
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-  INCLUDE_DIRS include
-#  LIBRARIES gaussian_process_regression
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
-)
+
 
 ###########
 ## Build ##
@@ -30,7 +45,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include)
+
 
 #############
 ## Testing ##
@@ -43,3 +58,6 @@ if(CATKIN_ENABLE_TESTING)
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/test
     )
 endif()
+
+
+

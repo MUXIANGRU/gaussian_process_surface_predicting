@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="gaussian_process_regression" type="prac" name="prac" output="screen">
+   </node>
+</launch>

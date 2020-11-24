@@ -22,9 +22,9 @@ class GaussianProcessRegression{
 
   MatrixXr input_data_;
   MatrixXr output_data_;
-  MatrixXr KXX;
+  MatrixXr KXX;  //covariance between the training data
   MatrixXr KXX_;
-  VectorXr KXx;
+  VectorXr KXx;  //covariance between the training data and test data
   //MatrixXr KxX;
 
   int n_data_;
@@ -45,7 +45,8 @@ public:
   GaussianProcessRegression(int inputDim, int outputDim);
 
   void SetHyperParams(double l, double f, double n){l_scale_ = l; sigma_f_ = f; sigma_n_ = n;};
-  void GetHyperParams(double & l, double & f, double & n){l = l_scale_; f = sigma_f_; n = sigma_n_;};
+  void GetHyperParams(double & l, double & f, double & n){l = l_scale_; f = sigma_f_; n = sigma_n_;
+                                                         std::cout<<l<<" "<<f<<" "<<n;};
 
   // add data one by one
   void AddTrainingData(const VectorXr& newInput, const VectorXr& newOutput);
